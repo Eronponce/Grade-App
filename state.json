@@ -1,0 +1,112 @@
+{
+  "turmas": [
+    {
+      "id": "198efa34",
+      "grade_id": "ADS 4000",
+      "label": "Turma 2023",
+      "start_year": 2023,
+      "start_bim": 1,
+      "source": "agenda2026"
+    },
+    {
+      "id": "fb54fcdc",
+      "grade_id": "ADS 5000",
+      "label": "Turma 2024",
+      "start_year": 2024,
+      "start_bim": 1,
+      "source": "agenda2026"
+    },
+    {
+      "id": "6cede20b",
+      "grade_id": "ADS 5000",
+      "label": "Turma 2025",
+      "start_year": 2025,
+      "start_bim": 1,
+      "source": "agenda2026"
+    },
+    {
+      "id": "4577e875",
+      "grade_id": "ADS 6000",
+      "label": "Turma 2026",
+      "start_year": 2026,
+      "start_bim": 1,
+      "source": "agenda2026"
+    },
+    {
+      "id": "3930dda6",
+      "grade_id": "CIA 1000",
+      "label": "Turma 2023",
+      "start_year": 2023,
+      "start_bim": 1,
+      "source": "agenda2026"
+    },
+    {
+      "id": "a098dfc7",
+      "grade_id": "CIA 2000",
+      "label": "Turma 2024",
+      "start_year": 2024,
+      "start_bim": 1,
+      "source": "agenda2026"
+    },
+    {
+      "id": "7ed41e15",
+      "grade_id": "CIA 2000",
+      "label": "Turma 2025",
+      "start_year": 2025,
+      "start_bim": 1,
+      "source": "agenda2026"
+    },
+    {
+      "id": "30234b10",
+      "grade_id": "EGS 1000",
+      "label": "Turma 2023",
+      "start_year": 2023,
+      "start_bim": 1,
+      "source": "agenda2026"
+    },
+    {
+      "id": "eb9e77de",
+      "grade_id": "EGS 2000",
+      "label": "Turma 2024",
+      "start_year": 2024,
+      "start_bim": 1,
+      "source": "agenda2026"
+    },
+    {
+      "id": "4336b510",
+      "grade_id": "EGS 2000",
+      "label": "Turma 2025",
+      "start_year": 2025,
+      "start_bim": 1,
+      "source": "agenda2026"
+    },
+    {
+      "id": "1e331a95",
+      "grade_id": "EGS 3000",
+      "label": "Turma 2026",
+      "start_year": 2026,
+      "start_bim": 1,
+      "source": "agenda2026"
+    },
+    {
+      "id": "46d2dc20",
+      "grade_id": "IAR 1000",
+      "label": "Turma 2026",
+      "start_year": 2026,
+      "start_bim": 1,
+      "source": "agenda2026"
+    },
+    {
+      "id": "fc7a4564",
+      "grade_id": "SCI 1000",
+      "label": "Turma 2026",
+      "start_year": 2026,
+      "start_bim": 1,
+      "source": "agenda2026"
+    }
+  ],
+  "current_bimestre": {
+    "year": 2026,
+    "bim": 3
+  }
+}

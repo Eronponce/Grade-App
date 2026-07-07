@@ -1,0 +1,14 @@
+services:
+  grade-app:
+    build: .
+    container_name: grade-app
+    ports:
+      - "8765:8765"
+    restart: unless-stopped
+    volumes:
+      - grade_data:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+
+volumes:
+  grade_data:

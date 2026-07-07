@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Grade Lab · Turmas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+<div id="loading" class="loading-overlay">
+  <div class="logo">◈</div>
+  <div class="msg">carregando grades…</div>
+</div>
+
+<div id="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">◈</div>
+      <div>
+        <div class="brand-title">Grade Lab</div>
+        <div class="brand-sub" id="health-line">carregando…</div>
+      </div>
+    </div>
+
+    <div class="bim-config">
+      <div class="section-label">Bimestre atual (global)</div>
+      <div class="bim-inputs">
+        <input type="number" id="bim-year" min="2020" max="2035" step="1" title="Ano" />
+        <select id="bim-num" title="Bimestre">
+          <option value="1">1º bim</option>
+          <option value="2">2º bim</option>
+          <option value="3">3º bim</option>
+          <option value="4">4º bim</option>
+        </select>
+      </div>
+      <div class="bim-hint" id="bim-hint">Muda tudo automaticamente.</div>
+    </div>
+
+    <div class="section-head">
+      <span class="section-label">Turmas ativas</span>
+      <button class="mini-btn" id="add-turma-btn" title="Adicionar turma">+</button>
+    </div>
+    <div id="turmas-list" class="turmas-list"></div>
+
+    <button id="reload-btn" class="reload-btn">↻ Recarregar grades</button>
+
+    <div class="footer-note">
+      Fonte: <code>G:\Meu Drive\random</code>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input
+          id="search"
+          type="text"
+          placeholder="Buscar disciplina (ex: sistemas operacionais, PDS II, governança)…"
+          autocomplete="off"
+        />
+        <kbd class="kbd">/</kbd>
+      </div>
+      <div class="tabs">
+        <button class="tab active" data-view="search">Busca</button>
+        <button class="tab" data-view="timeline">Timeline</button>
+      </div>
+      <button id="cart-btn" class="cart-btn" title="Carrinho">
+        <span>🛒</span>
+        <span id="cart-count" class="cart-count">0</span>
+      </button>
+    </header>
+
+    <section id="view-search" class="view active">
+      <div id="results" class="results"></div>
+      <div id="empty-hint" class="empty-hint">
+        <h2>Consulta rápida</h2>
+        <p>Aluno pergunta sobre uma disciplina? Cole o nome no campo acima.</p>
+        <ul>
+          <li>Turma tem <b>bimestre de início</b>. Módulo atual = calculado do bim global.</li>
+          <li>Mudou de bimestre? Só ajusta o campo <b>Bimestre atual</b> no topo da sidebar. Todo mundo avança sozinho.</li>
+          <li>Cards mostram delta em bimestres pra cada turma da grade.</li>
+          <li>Atalho: <kbd>/</kbd> foca no campo, <kbd>Esc</kbd> limpa.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="view-timeline" class="view">
+      <div class="timeline-scroll">
+        <table id="timeline-table" class="timeline">
+          <thead><tr id="timeline-head"></tr></thead>
+          <tbody id="timeline-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="detail-modal" class="modal hidden">
+  <div class="modal-card">
+    <button class="modal-close" id="modal-close">×</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<div id="cart-modal" class="modal hidden">
+  <div class="modal-card">
+    <button class="modal-close" id="cart-modal-close">×</button>
+    <h1>Carrinho — resposta ao aluno</h1>
+    <div class="modal-meta"><span id="cart-count-modal">0</span> disciplina(s) selecionada(s)</div>
+
+    <label class="form-label">Aluno (nome)</label>
+    <input id="cart-student-name" type="text" placeholder="Ex: Maicon Bortoli" />
+
+    <label class="form-label">Turma do aluno (referência)</label>
+    <select id="cart-target-turma"></select>
+
+    <div class="modal-section-label">Disciplinas selecionadas</div>
+    <div id="cart-items" class="cart-items"></div>
+
+    <div class="modal-section-label">Texto do e-mail (pronto pra colar)</div>
+    <textarea id="cart-email" rows="18" class="cart-email"></textarea>
+
+    <div class="form-actions">
+      <button id="cart-clear" class="btn-ghost">Limpar tudo</button>
+      <button id="cart-copy" class="btn-primary">📋 Copiar e-mail</button>
+    </div>
+  </div>
+</div>
+
+<div id="turma-modal" class="modal hidden">
+  <div class="modal-card modal-narrow">
+    <button class="modal-close" id="turma-modal-close">×</button>
+    <h1>Nova turma</h1>
+    <label class="form-label">Grade</label>
+    <select id="turma-form-grade"></select>
+    <label class="form-label">Rótulo</label>
+    <input id="turma-form-label" type="text" placeholder="Ex: Turma 2024" />
+    <label class="form-label">Bimestre de início</label>
+    <div class="bim-inputs">
+      <input type="number" id="turma-form-year" min="2015" max="2035" step="1" placeholder="ano" />
+      <select id="turma-form-bim">
+        <option value="1">1º bim</option>
+        <option value="2">2º bim</option>
+        <option value="3">3º bim</option>
+        <option value="4">4º bim</option>
+      </select>
+    </div>
+    <div class="bim-hint" id="turma-form-preview">Módulo atual será calculado.</div>
+    <div class="form-actions">
+      <button id="turma-form-cancel" class="btn-ghost">Cancelar</button>
+      <button id="turma-form-save" class="btn-primary">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
