@@ -14,3 +14,7 @@ dist/
 build/
 .DS_Store
 tests/screenshot*.png
+
+# Agenda interna da UniFil (nomes de professores) - fica so local
+data_analysis/agenda_*.xlsx
+data_analysis/agenda_*_parsed.json

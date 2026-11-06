@@ -71,7 +71,7 @@ curl -X POST http://localhost:8765/api/turmas/bootstrap \
   -d '{"replace": true}'
 ```
 
-Popula turmas do `data_analysis/agenda_2026.xlsx`.
+Popula turmas do `data_analysis/agenda_2026.xlsx` (arquivo local, nao versionado: contem dados internos da UniFil).
 
 ## Database
 
